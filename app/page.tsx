@@ -5,6 +5,7 @@ import type { Recipe } from "@/app/types/recipe";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import SubscribeForm from "@/app/components/SubscribeForm";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default async function HomePage() {
   const { data: recipes } = await supabase.from("recipes").select("*") as { data: Recipe[] | null };
