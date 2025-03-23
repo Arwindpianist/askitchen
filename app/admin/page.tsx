@@ -1,3 +1,4 @@
+// path/to/AdminPage.tsx
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -6,6 +7,7 @@ import RecipeForm from "@/app/components/RecipeForm";
 import RecipeCard from "@/app/components/RecipeCard";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import EditRecipeForm from "@/app/components/EditRecipeForm"; // New import for editing recipes
 import type { Recipe } from "@/app/types/recipe";
 
 const allowedEmails: string[] = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS?.split(",") || [];
@@ -14,6 +16,7 @@ export default function AdminPage() {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<any>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null); // State to hold the recipe being edited
   const router = useRouter();
 
   useEffect(() => {
@@ -50,6 +53,14 @@ export default function AdminPage() {
     router.push("/login");
   };
 
+  const handleEditRecipe = (recipe: Recipe) => {
+    setEditingRecipe(recipe); // Set the recipe to be edited
+  };
+
+  const handleCloseEdit = () => {
+    setEditingRecipe(null); // Close the edit form
+  };
+
   if (isLoading) return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <p className="text-text-muted">Loading...</p>
@@ -73,6 +84,13 @@ export default function AdminPage() {
           
           <div className="card mb-8">
             <RecipeForm refreshRecipes={fetchRecipes} />
+            {editingRecipe && ( // Render the edit form if a recipe is being edited
+              <EditRecipeForm 
+                recipe={editingRecipe} 
+                onClose={handleCloseEdit} 
+                refreshRecipes={fetchRecipes} 
+              />
+            )}
           </div>
 
           <h2 className="text-2xl font-bold text-text mb-6">Manage Recipes</h2>
@@ -81,7 +99,12 @@ export default function AdminPage() {
               <p className="text-text-muted text-center py-12">No recipes added yet.</p>
             ) : (
               recipes.map((recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} refreshRecipes={fetchRecipes} />
+                <RecipeCard 
+                  key={recipe.id} 
+                  recipe={recipe} 
+                  refreshRecipes={fetchRecipes} 
+                  onEdit={() => handleEditRecipe(recipe)} // Pass the edit handler to RecipeCard
+                />
               ))
             )}
           </div>
