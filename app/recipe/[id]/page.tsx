@@ -67,7 +67,11 @@ async function RecipePage({ params }: PageProps) {
               <h2 className="text-xl font-bold text-gray-900 mb-4">Ingredients</h2>
               <ul className="list-disc list-inside text-gray-600 space-y-2">
                 {recipe.ingredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+                  ingredient.trim() === "" ? (
+                    <div key={index} className="h-4"></div> // Spacer for empty newlines
+                  ) : (
+                    <li key={index}>{ingredient}</li>
+                  )
                 ))}
               </ul>
             </div>
@@ -76,7 +80,11 @@ async function RecipePage({ params }: PageProps) {
               <h2 className="text-xl font-bold text-gray-900 mb-4">Instructions</h2>
               <ol className="list-decimal list-inside text-gray-600 space-y-4">
                 {recipe.instructions.map((step, index) => (
-                  <li key={index}>{step}</li>
+                  step.trim() === "" ? (
+                    <div key={index} className="h-4"></div> // Spacer for empty newlines
+                  ) : (
+                    <li key={index}>{step}</li>
+                  )
                 ))}
               </ol>
             </div>
