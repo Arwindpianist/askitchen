@@ -5,10 +5,12 @@ import type { Recipe } from "@/app/types/recipe";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import SubscribeForm from "@/app/components/SubscribeForm";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+export const dynamic = "force-dynamic"; // Ensures no caching
 
 export default async function HomePage() {
-  const { data: recipes } = await supabase.from("recipes").select("*") as { data: Recipe[] | null };
+  const { data: recipes } = await supabase.from("recipes").select("*");
 
   return (
     <>
@@ -18,7 +20,7 @@ export default async function HomePage() {
           <h1 className="text-4xl font-bold text-gray-900 text-center mb-12">
             Welcome to ASKitchen
           </h1>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recipes?.map((recipe) => (
               <div key={recipe.id} className="card hover:shadow-md transition-shadow overflow-hidden">

@@ -4,11 +4,13 @@ import Link from "next/link";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 
+export const dynamic = "force-dynamic"; // Ensures no caching
+
 export default async function RecipesPage() {
   const { data: recipes } = await supabase
     .from("recipes")
     .select("*")
-    .order('created_at', { ascending: false }) as { data: Recipe[] | null };
+    .order("created_at", { ascending: false });
 
   return (
     <>
@@ -16,14 +18,14 @@ export default async function RecipesPage() {
       <main className="min-h-screen py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-text mb-8">All Recipes</h1>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recipes?.map((recipe) => (
               <Link key={recipe.id} href={`/recipe/${recipe.id}`} className="group">
                 <div className="border border-text/10 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-background h-full">
-                  <img 
-                    src={recipe.image_url || "/placeholder.jpg"} 
-                    alt={recipe.title} 
+                  <img
+                    src={recipe.image_url || "/placeholder.jpg"}
+                    alt={recipe.title}
                     className="w-full h-48 object-cover group-hover:opacity-90 transition-opacity"
                   />
                   <div className="p-4">
@@ -56,4 +58,4 @@ export default async function RecipesPage() {
       <Footer />
     </>
   );
-} 
+}
