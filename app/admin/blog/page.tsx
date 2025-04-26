@@ -8,6 +8,7 @@ import BlogForm from "@/app/components/BlogForm";
 import BlogCard from "@/app/components/BlogCard";
 import EditBlogForm from "@/app/components/EditBlogForm";
 import type { BlogPost } from "@/app/types/blog";
+import AdminHeader from "@/app/components/AdminHeader";
 
 const allowedEmails: string[] = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS?.split(",") || [];
 
@@ -65,7 +66,7 @@ export default function AdminBlogPage() {
 
   return (
     <>
-      <Header />
+      <AdminHeader />
       <main className="min-h-screen py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">

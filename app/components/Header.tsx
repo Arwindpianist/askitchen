@@ -14,6 +14,9 @@ export default function Header() {
           <Link href="/recipe" className="text-gray-900 hover:text-purple-600 transition-colors">
             Recipes
           </Link>
+          <Link href="/blog" className="text-gray-900 hover:text-purple-600 transition-colors">
+            Blog
+          </Link>
         </div>
       </nav>
     </header>
