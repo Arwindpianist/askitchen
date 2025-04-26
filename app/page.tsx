@@ -17,13 +17,13 @@ export default async function HomePage() {
       <Header />
       <main className="min-h-screen py-12 bg-purple-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-gray-900 text-center mb-12">
+          <h1 className="text-4xl font-bold text-purple-700 text-center mb-12">
             Welcome to ASKitchen
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recipes?.map((recipe) => (
-              <div key={recipe.id} className="card hover:shadow-md transition-shadow overflow-hidden">
+              <div key={recipe.id} className="card shadow-purple-400 hover:shadow-md transition-shadow overflow-hidden">
                 {recipe.image_url && (
                   <div className="relative w-full h-48 mb-4">
                     <Image
@@ -37,7 +37,7 @@ export default async function HomePage() {
                   </div>
                 )}
                 <div className="p-4">
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">{recipe.title}</h2>
+                  <h2 className="text-xl font-bold text-purple-700 mb-2">{recipe.title}</h2>
                   <p className="text-gray-600 mb-4 line-clamp-2">{recipe.description}</p>
                   <Link 
                     href={`/recipe/${recipe.id}`}
